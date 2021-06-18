@@ -6,8 +6,6 @@ wheel>=0.29
 
 # data science
 numpy
-pandas
-scikit-learn
 
 # tests/linter
 black
@@ -21,6 +19,8 @@ gcsfs
 google-cloud-storage
 mlflow
 s3fs
+flask
+Django
 
 # utilities
 six>=1.14

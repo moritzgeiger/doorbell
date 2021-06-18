@@ -5,10 +5,10 @@ install_requirements:
 	@pip install -r requirements.txt
 
 check_code:
-	@flake8 scripts/* doorbell/*.py
+	@flake8 scripts/* doorbell_wz/*.py
 
 black:
-	@black scripts/* doorbell/*.py
+	@black scripts/* doorbell_wz/*.py
 
 test:
 	@coverage run -m pytest tests/*.py
@@ -22,8 +22,8 @@ clean:
 	@rm -f .coverage
 	@rm -fr */__pycache__ */*.pyc __pycache__
 	@rm -fr build dist
-	@rm -fr doorbell-*.dist-info
-	@rm -fr doorbell.egg-info
+	@rm -fr doorbell_wz-*.dist-info
+	@rm -fr doorbell_wz.egg-info
 
 install:
 	@pip install . -U
@@ -53,6 +53,9 @@ count_lines:
 PYPI_USERNAME=<AUTHOR>
 build:
 	@python setup.py sdist bdist_wheel
+
+django:
+	@python manage.py runserver
 
 pypi_test:
 	@twine upload -r testpypi dist/* -u $(PYPI_USERNAME)
