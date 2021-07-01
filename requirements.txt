@@ -7,12 +7,6 @@ wheel>=0.29
 # data science
 numpy
 
-# tests/linter
-black
-coverage
-flake8
-pytest
-yapf
 
 # API
 gcsfs
