@@ -25,7 +25,7 @@ def play_song(speaker, url, playtime):
 
             # play the song
             print('injecting and playing song...')
-            sp.volume = 10
+            sp.volume = 15
             sp.add_uri_to_queue(url, position=get_pos + 1)
             sp.next()
             sp.play()
@@ -43,7 +43,7 @@ def play_song(speaker, url, playtime):
 
         else:
             print('playing song...')
-            sp.volume = 10
+            sp.volume = 15
             sp.play_uri(url)
             time.sleep(playtime)
             sp.pause()

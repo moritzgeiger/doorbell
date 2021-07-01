@@ -3,10 +3,11 @@
 {% block container %}
 <div class="top-pad">
   {% for id, guest in items.items() %}
-  <div class="well">
-    <h2>
-      <a href="{{ url_for('ring', key=id) }}">{{guest['name'] }}</a>
-    </h2>
+  <div>
+    <a href="{{ url_for('ring', key=id) }}" class="btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold" onclick="ga('send', 'event', 'Examples', 'Hero', 'Download Examples');">{{guest['name'] }}</a>
+  </div>
+  <div>
+    <p></p>
   </div>
   {% endfor %}
 </div>
