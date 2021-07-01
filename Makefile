@@ -54,11 +54,14 @@ PYPI_USERNAME=<AUTHOR>
 build:
 	@python setup.py sdist bdist_wheel
 
-django:
-	@python manage.py runserver
-
 pypi_test:
 	@twine upload -r testpypi dist/* -u $(PYPI_USERNAME)
 
+flask:
+	@python app.py
+
 pypi:
 	@twine upload dist/* -u $(PYPI_USERNAME)
+
+kiosk:
+	@chromium-browser templates/home.html --window-size=1920,1080 --start-fullscreen --kiosk --incognito --noerrdialogs --disable-translate --no-first-run --fast --fast-start --disable-infobars --disable-features=TranslateUI --disk-cache-dir=/dev/null  --password-store=basic

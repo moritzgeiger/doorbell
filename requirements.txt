@@ -20,7 +20,6 @@ google-cloud-storage
 mlflow
 s3fs
 flask
-Django
 
 # utilities
 six>=1.14
@@ -28,3 +27,7 @@ joblib
 memoized-property
 termcolor
 python-dotenv
+
+# Sonos
+soco-cli
+soco

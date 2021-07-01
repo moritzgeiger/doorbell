@@ -4,5 +4,5 @@ This app aims to connect small TFT displays to a home network and target the SON
 _________________________________
 
 1. Frontend
-For the frontend I am using an easy template from [startbootstrap](https://startbootstrap.com/theme/freelancer). The framework is [Django](https://www.djangoproject.com/).
+For the frontend I am using an easy template from [startbootstrap](https://startbootstrap.com/theme/freelancer). The framework is [Flask]().
 
