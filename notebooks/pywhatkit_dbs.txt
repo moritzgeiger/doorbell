@@ -1,0 +1,51 @@
+--------------------
+Date: 2:7:2021
+Time: 11:48
+Phone number: +48785647782
+Message: You are special in my heart, sweetie. Forever will you, darling.
+--------------------
+Date: 2:7:2021
+Time: 11:50
+Phone number: +48785647782
+Message: You are special in my heart, sweetie. Forever will you, darling.
+--------------------
+Date: 2:7:2021
+Time: 11:54
+Phone number: +48785647782
+Message: You are special in my heart, sweetie. Forever will you, darling.
+--------------------
+Date: 2:7:2021
+Time: 11:60
+Phone number: +48785647782
+Message: You are special in my heart, sweetie. Forever will you, darling.
+--------------------
+Date: 2:7:2021
+Time: 12:4
+Group_id: IB0eGIlETyQJTYDp0xwzv9
+Message: Testnachricht von nem Bot
+--------------------
+Date: 2:7:2021
+Time: 13:30
+Group_id: IB0eGIlETyQJTYDp0xwzv9
+Message: Testnachricht von nem Bot
+--------------------
+Date: 2:7:2021
+Time: 13:33
+Group_id: KZHW3dWTM5m2DuFqoAOF7a
+Message: Testnachricht von nem Bot
+--------------------
+Date: 2:7:2021
+Time: 13:33
+Group_id: KZHW3dWTM5m2DuFqoAOF7a
+Message: Testnachricht von nem Bot
+--------------------
+Date: 2:7:2021
+Time: 13:41
+Group_id: KZHW3dWTM5m2DuFqoAOF7a
+Message: Testnachricht von nem Bot
+--------------------
+Date: 2:7:2021
+Time: 13:42
+Group_id: KZHW3dWTM5m2DuFqoAOF7a
+Message: Testnachricht von nem Bot
+--------------------

@@ -8,7 +8,7 @@ from utils.data import GUESTS
 from utils.utils import play_song
 
 # EXT
-speaker = 'Office'
+speaker = 'Büro'
 url = 'https://storage.googleapis.com/bank_price_pdfs/klingelstreich.mp3'
 
 app = Flask(__name__)
