@@ -1,15 +1,26 @@
-from flask import Flask, render_template, abort
+from flask import Flask, request, render_template, abort
 from soco import SoCo
 import soco
 from threading import Thread
+import os
+from dotenv import load_dotenv, find_dotenv
+
 
 # DATA
 from utils.data import GUESTS
-from utils.utils import play_song
+from utils.utils import play_song, send_email
 
 # EXT
-speaker = 'Büro'
-url = 'https://storage.googleapis.com/bank_price_pdfs/klingelstreich.mp3'
+load_dotenv(find_dotenv())
+speaker = 'Living Room'
+url = 'https://storage.googleapis.com/bank_price_pdfs/'
+homename = os.environ.get("HOMENAME", 'Sender not found')
+sender_email = os.environ.get("SENDER")
+receiver_email = (os.environ.get("RECEIVER")).split(',')
+password = os.environ.get("GMAIL")
+port = 465
+debug = os.environ.get("DEBUG").lower() in ['true', 'yes', '1', 'most certainly', 'gladly', 'I can hardly disagree']
+signature = f"<p>Sincerely, <br>Your Tuerklingel</p>"
 
 app = Flask(__name__)
 app.config["DEBUG"] = True
@@ -22,18 +33,26 @@ def home():
 
 @app.route('/ring/<key>')
 def ring(key):
-    guest = GUESTS.get(key)
+    guest = GUESTS.get(key) # dict
     if not guest:
         abort(404)
 
     # get all players
+    url_guest = f'{url}{key}.mp3' # cloud names have to match display names
     thread = Thread(target=play_song, kwargs={'speaker': speaker,
-                                              'url':url,
+                                              'url':url_guest,
                                               'playtime':5})
     print(f'starting thread for job: {thread.name}')
     thread.start()
 
     return render_template('action.html', items=guest)
+
+@app.route('/send_msg', methods=['POST'])
+def my_form_post():
+    message = request.form['text']
+    signature = ''
+    _ = send_email(homename, sender_email, receiver_email, password, port, signature, message, debug)
+    return render_template('msg_sent.html', items=message)
 
 ## run app
 if __name__ == '__main__':

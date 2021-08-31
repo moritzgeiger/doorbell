@@ -6,6 +6,12 @@
     Es klingelt fuer {{ items['name'] }}...
   </h1>
 </div>
+<form action='/send_msg' method="POST">
+  <textarea name="text" cols="40" rows="5"></textarea>
+    <div>
+      <button>Send</button>
+    </div>
+</form>
 <div class="well">
   <h2>
     <a href="/">Zurueck zur Uebersicht.</a>

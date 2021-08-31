@@ -5,10 +5,9 @@
 # $guest = $_GET["guest"];
 # $prank = $_GET["prank"];
 
-
 GUESTS = {
-    'felix': {
-        'name': 'Felix',
+    'guest': {
+        'name': 'Ein Gast',
         'category': 'Phones',
         'price': 699,
     },
@@ -22,8 +21,8 @@ GUESTS = {
         'category': 'Tablets',
         'price': 649,
     },
-    'guest': {
-        'name': 'Ein Gast',
+    'sheep': {
+        'name': 'Ein Schaf ist ausgebüchst',
         'category': 'Tablets',
         'price': 549
     },
