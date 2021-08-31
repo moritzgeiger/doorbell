@@ -4,6 +4,7 @@ import soco
 from threading import Thread
 import os
 from dotenv import load_dotenv, find_dotenv
+from datetime import datetime, time
 
 
 # DATA
@@ -33,7 +34,6 @@ def home():
     """
     return render_template('home.html', items=GUESTS)
 
-
 @app.route('/ring/<key>')
 def ring(key):
     """
@@ -45,15 +45,25 @@ def ring(key):
     if not guest:
         abort(404)
 
-    # get all players
-    url_guest = f'{url}{key}.mp3' # cloud names have to match display names
-    thread = Thread(target=play_song, kwargs={'speaker': speaker,
-                                              'url': url_guest,
-                                              'playtime':8})
-    print(f'starting thread for job: {thread.name}')
-    thread.start()
+    now_time = datetime.now().time()
+    print(now_time)
 
-    return render_template('action.html', items=guest, person=key)
+    if time(7,0,0) < now_time < time(20,0,0):
+        print('daytime bell active')
+        # get all players
+        url_guest = f'{url}{key}.mp3' # cloud names have to match display names
+        thread = Thread(target=play_song, kwargs={'speaker': speaker,
+                                                  'url': url_guest,
+                                                  'playtime':10})
+        print(f'starting thread for job: {thread.name}')
+        thread.start()
+
+        return render_template('action.html', items=guest, person=key)
+
+    else:
+        print('late bell activated.')
+        return render_template('night.html', items=guest, person=key)
+
 
 @app.route('/<key>/send_msg', methods=['POST'])
 def my_form_post(key):

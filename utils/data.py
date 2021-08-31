@@ -12,12 +12,6 @@ GUESTS = {
         'category': 'Phones',
         'price': 699,
     },
-    'meyer': {
-        'name': '🤠 Herr Meyer',
-        'id': 'meyer',
-        'category': 'Phones',
-        'price': 649,
-    },
     'postman': {
         'name': '📯 Der Postbote',
         'category': 'Phones',

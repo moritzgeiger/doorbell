@@ -1,7 +1,6 @@
-from soco import SoCo
+from soco import SoCo, snapshot
 import soco
 import time
-from dotenv import load_dotenv, find_dotenv
 import os
 import datetime as dt
 from email.mime.multipart import MIMEMultipart
@@ -20,42 +19,64 @@ def play_song(speaker, url, playtime):
         #find all devices and set the seeked one
         devices = {device.player_name: device for device in soco.discover()}
         sp = devices[speaker]
-        prev_queue = sp.get_queue()
+        uri = sp.avTransport.GetMediaInfo([("InstanceID", 0)]).get('CurrentURI')
+        meta = sp.avTransport.GetMediaInfo([("InstanceID", 0)]).get('CurrentURIMetaData')
         play_mode = sp.get_current_transport_info()
 
         if play_mode.get('current_transport_state') == 'PLAYING':
-            # save previous settings
             prev_vol = sp.volume
-            get_pos = int(sp.get_current_track_info().get(
-                'playlist_position'))  # base is 1
-            get_seek = sp.get_current_track_info().get('position')
+            if any(x in uri for x in ['radio', 'stream']):
+                print('handling radio interruption.')
+                # handle radio stations differently, they don't have .next()
+                sp.volume = 25
+                sp.play_uri(url)
+                time.sleep(playtime)
+                sp.stop()
+                # sp.clear_queue()
+                sp.volume = prev_vol
+                sp.play_uri(uri, meta=meta)
+                print('restored old radio state.')
 
-            # play the song
-            print('injecting and playing song...')
-            sp.volume = 25
-            sp.add_uri_to_queue(url, position=get_pos + 1)
-            sp.next()
-            sp.play()
+            else:
+                print('handling queue interruption.')
+                prev_queue = sp.get_queue()
+                play_mode = sp.get_current_transport_info()
+                # save previous settings
+                get_pos = int(sp.get_current_track_info().get('playlist_position')) # base is 1
+                print(f'current queue pos: {get_pos}')
+                get_seek = sp.get_current_track_info().get('position')
+                print(f'current title pos: {get_seek}')
 
-            # set play time
-            time.sleep(playtime)
+                # play the song
+                print('injecting and playing song...')
+                sp.volume = 25
+                sp.play_uri(url)
 
-            # get back to the old queue
-            print('returning to old queue.')
-            sp.clear_queue()
-            sp.add_multiple_to_queue(prev_queue)
-            sp.volume = prev_vol
-            sp.play_from_queue(get_pos - 1)  # base is 0
-            sp.seek(get_seek)
+                # set play time
+                time.sleep(playtime)
+                sp.stop()
+                # sp.clear_queue()
+
+                # get back to the old queue
+                print('returning to old queue.')
+                # sp.add_multiple_to_queue(prev_queue)
+                sp.volume = prev_vol
+                sp.play_from_queue(get_pos-1) # base is 0
+                sp.seek(get_seek)
+                print('restored old queue state.')
 
         else:
             print('playing song...')
+            prev_queue = sp.get_queue()
             sp.volume = 25
             sp.play_uri(url)
             time.sleep(playtime)
-            sp.pause()
-            sp.clear_queue()
-            sp.add_multiple_to_queue(prev_queue)
+            if any(x in uri for x in ['radio', 'stream']):
+                print('restoring radio to player without playing.')
+                sp.play_uri(uri)
+                sp.stop()
+            else:
+                print('restoring old queue to player.')
 
     except KeyError:
         print(f'speaker {speaker} not found')
