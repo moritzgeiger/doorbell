@@ -1,21 +1,27 @@
-{% extends 'home.html' %}
+{% extends 'base.html' %}
 
 {% block container %}
 <div class="top-pad">
-  <h1>
-    Es klingelt fuer {{ items['name'] }}...
-  </h1>
+  <h2>
+    Es klingelt fuer "{{ items['name'] }}"...
+  </h2>
 </div>
-<form action='/send_msg' method="POST">
-  <textarea name="text" cols="40" rows="5"></textarea>
+<div class="top-pad">
+  <p>Willst du eine Nachricht hinterlassen?<br>
+  (Bitte Namen mit angeben, danke.)</p>
+<form action='/{{ person }}/send_msg' method="POST">
     <div>
-      <button>Send</button>
+      <textarea name="text" placeholder="Schreibe deine Nachricht hier..." cols="40" rows="5" class="form-control" id="exampleFormControlTextarea1"></textarea>
+    </div>
+    <div>
+      <br>
+      <button class="btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold">Senden</button>
     </div>
 </form>
-<div class="well">
-  <h2>
-    <a href="/">Zurueck zur Uebersicht.</a>
-  </h2>
+</div>
+<div class="top-pad">
+  <a href="/" class="btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold"
+    onclick="ga('send', 'event', 'Examples', 'Hero', 'Download Examples');">Zurück zur Übersicht</a>
 </div>
 
 {% endblock %}

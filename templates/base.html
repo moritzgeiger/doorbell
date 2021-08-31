@@ -5,19 +5,17 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Tuerklingel Wasserzell</title>
+  <title>Türklingel Wasserzell</title>
   <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
   <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
 </head>
 
 <body>
-    <div class="container">
       <div class="top-pad">
-        <div class="well">
-        <a class="navbar-brand" href="{{ url_for('home')}}">Wer klopfet an?</a>
-        </div>
+          <a class="navbar-brand" href="{{ url_for('home')}}">
+          <img class="img-fluid" href="{{ url_for('home')}}" src="../static/wasserzell.jpeg">
+          </a>
       </div>
-    </div>
   <div class="container">
     {% block container %}{% endblock %}
   </div>

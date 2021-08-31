@@ -7,27 +7,34 @@
 
 GUESTS = {
     'guest': {
-        'name': 'Ein Gast',
+        'name': '👻 Ein Gast',
+        'id': 'guest',
         'category': 'Phones',
         'price': 699,
     },
     'meyer': {
-        'name': 'Herr Meyer',
+        'name': '🤠 Herr Meyer',
+        'id': 'meyer',
+        'category': 'Phones',
+        'price': 649,
+    },
+    'postman': {
+        'name': '📯 Der Postbote',
         'category': 'Phones',
         'price': 649,
     },
     'rahel': {
-        'name': 'Rahel',
+        'name': '🚜 Rahel',
         'category': 'Tablets',
         'price': 649,
     },
     'sheep': {
-        'name': 'Ein Schaf ist ausgebüchst',
+        'name': '🐑 Ein Schaf ist ausgebüchst',
         'category': 'Tablets',
         'price': 549
     },
     'prank': {
-        'name': 'Klingelstreich',
+        'name': '🤪 Klingelstreich',
         'category': 'Tablets',
         'price': 549
     }

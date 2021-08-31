@@ -61,7 +61,7 @@ def play_song(speaker, url, playtime):
         print(f'speaker {speaker} not found')
 
 
-def send_email(homename, sender_email, receiver_email, password, port, signature, message, debug):
+def send_email(homename, sender_email, receiver_email, password, port, signature, person, message, debug):
     """
     Compiles an Email with the email.mime library and sends it through a Google Mail smtp server.
     Takes in variables for the mail content [homename (str), lvl_results (dict), signature (str)]
@@ -70,38 +70,34 @@ def send_email(homename, sender_email, receiver_email, password, port, signature
     """
     print('send email was called.')
     # check, if there is alert level 2 was reached in the checkpoints
-    if debug: #or an email was received:
-        print('data was requested via mail')
-        # init msg
-        init = f"<p>{message}</p>"
+    print('data was requested via mail')
+    # init msg
+    init = f"<p>{message}</p>"
 
-        # Record the MIME types of text/html.
-        text = MIMEMultipart('alternative')
-        text.attach(MIMEText(init + signature, 'html', _charset="utf-8"))
+    # Record the MIME types of text/html.
+    text = MIMEMultipart('alternative')
+    text.attach(MIMEText(init + signature, 'html', _charset="utf-8"))
 
-        # compile email msg
-        now = dt.datetime.now().strftime("%y-%m-%d %H:%M")
-        msg = MIMEMultipart('mixed')
+    # compile email msg
+    now = dt.datetime.now().strftime("%y-%m-%d %H:%M")
+    msg = MIMEMultipart('mixed')
 
-        # avoid automized email ruling by subject when testing
-        if debug:
-            msg['Subject'] = f"-Nachricht von Tuerklingel {now}"
-        else:
-            msg['Subject'] = f"-Nachricht von Tuerklingel -TEST- - {now}"
-        msg['From'] = f'{homename} <{sender_email}>'
-        msg['To'] = ','.join(receiver_email)
-
-        # add all parts to msg
-        msg.attach(text)
-
-        # Create a secure SSL context
-        context = ssl.create_default_context()
-
-        with smtplib.SMTP_SSL("smtp.gmail.com", port, context=context) as server:
-            server.login(sender_email, password)
-            server.sendmail(sender_email, receiver_email, msg.as_string())
-
-        print(f'successfully sent email to {receiver_email}')
+    # avoid automized email ruling by subject when testing
+    if debug:
+        msg['Subject'] = f"Klingelnachricht von {person} um {now}"
     else:
-        print(f'There was no request via email.')
-        print('Exit function without sending mail.')
+        msg['Subject'] = f"Klingelnachricht von {person} -TEST- {now}"
+    msg['From'] = f'{homename} <{sender_email}>'
+    msg['To'] = ','.join(receiver_email)
+
+    # add all parts to msg
+    msg.attach(text)
+
+    # Create a secure SSL context
+    context = ssl.create_default_context()
+
+    with smtplib.SMTP_SSL("smtp.gmail.com", port, context=context) as server:
+        server.login(sender_email, password)
+        server.sendmail(sender_email, receiver_email, msg.as_string())
+
+    print(f'successfully sent email to {receiver_email}')

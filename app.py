@@ -20,7 +20,7 @@ receiver_email = (os.environ.get("RECEIVER")).split(',')
 password = os.environ.get("GMAIL")
 port = 465
 debug = os.environ.get("DEBUG").lower() in ['true', 'yes', '1', 'most certainly', 'gladly', 'I can hardly disagree']
-signature = f"<p>Sincerely, <br>Your Tuerklingel</p>"
+signature = f"<p>Sincerely, <br>Your Türklingel</p>"
 
 app = Flask(__name__)
 app.config["DEBUG"] = True
@@ -28,11 +28,19 @@ app.config["DEBUG"] = True
 @app.route('/')
 @app.route('/home')
 def home():
+    """
+    Displays the index page with several ring buttons (depending on the size of the GUESTS dictionary.)
+    """
     return render_template('home.html', items=GUESTS)
 
 
 @app.route('/ring/<key>')
 def ring(key):
+    """
+    Initiates playing a music file on a designated speaker. The key is fetched out of the route
+    and displays the dictionary key from the GUESTS dictionary.
+    The music file is stored in a cloud bucket and has the same name as the key.
+    """
     guest = GUESTS.get(key) # dict
     if not guest:
         abort(404)
@@ -40,18 +48,25 @@ def ring(key):
     # get all players
     url_guest = f'{url}{key}.mp3' # cloud names have to match display names
     thread = Thread(target=play_song, kwargs={'speaker': speaker,
-                                              'url':url_guest,
-                                              'playtime':5})
+                                              'url': url_guest,
+                                              'playtime':8})
     print(f'starting thread for job: {thread.name}')
     thread.start()
 
-    return render_template('action.html', items=guest)
+    return render_template('action.html', items=guest, person=key)
 
-@app.route('/send_msg', methods=['POST'])
-def my_form_post():
+@app.route('/<key>/send_msg', methods=['POST'])
+def my_form_post(key):
+    """
+    Gathers content for email message to house owner. The key is fetched out of the route and displays the
+    dictionary key from the GUESTS dictionary.
+    """
+    guest = GUESTS.get(key).get('name') # dict
+    if not guest:
+        abort(404)
     message = request.form['text']
-    signature = ''
-    _ = send_email(homename, sender_email, receiver_email, password, port, signature, message, debug)
+    person = guest
+    _ = send_email(homename, sender_email, receiver_email, password, port, signature, person, message, debug)
     return render_template('msg_sent.html', items=message)
 
 ## run app
