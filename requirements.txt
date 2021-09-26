@@ -90,7 +90,6 @@ jupyter-server==1.9.0
 jupyterlab==3.0.16
 jupyterlab-pygments==0.1.2
 jupyterlab-server==2.6.0
-kaleido==0.2.1
 keras-nightly==2.5.0.dev2021032900
 Keras-Preprocessing==1.1.2
 keyring==23.0.1
