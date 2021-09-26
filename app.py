@@ -74,7 +74,7 @@ def my_form_post(key):
     guest = GUESTS.get(key).get('name') # dict
     if not guest:
         abort(404)
-    message = request.form['text']
+    message = request.form['text'].replace('<','') # mutilize injected HTML
     person = guest
     _ = send_email(homename, sender_email, receiver_email, password, port, signature, person, message, debug)
     return render_template('msg_sent.html', items=message)
