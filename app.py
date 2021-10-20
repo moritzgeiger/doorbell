@@ -13,7 +13,7 @@ from utils.utils import play_song, send_email
 
 # EXT
 load_dotenv(find_dotenv())
-speaker = 'Living Room'
+speaker = 'Esszimmer'
 url = 'https://storage.googleapis.com/bank_price_pdfs/'
 homename = os.environ.get("HOMENAME", 'Sender not found')
 sender_email = os.environ.get("SENDER")
